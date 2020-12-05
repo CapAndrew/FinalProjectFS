@@ -1,4 +1,4 @@
-package app.com.finalprojectfs.history.di
+package app.com.finalprojectfs.login.di
 
 import app.com.finalprojectfs.login.presenter.LoginPresenter
 

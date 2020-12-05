@@ -4,4 +4,5 @@
     <string name="password_hint">Password</string>
     <string name="login_button_text">Войти</string>
     <string name="register_button_text">Зарегистрироваться</string>
+    <string name="get_new_loan">Получить заём</string>
 </resources>

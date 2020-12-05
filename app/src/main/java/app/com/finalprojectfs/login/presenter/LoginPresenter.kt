@@ -32,10 +32,11 @@ class LoginPresenter {
     fun onLoginButtonClicked(login: String, password: String) {
         view?.showProgress()
 
+
         val result = adapter?.login(login, password)
         handleLoginResult(result = result)
 
-        view?.showToast("Login with $login and $password")
+        view?.showToast("$result")
     }
 
     fun onRegisterButtonClicked(login: String, password: String) {
@@ -43,7 +44,13 @@ class LoginPresenter {
         view?.showToast("Register with $login and $password")
     }
 
-    fun handleLoginResult(result: Result<String>?){
+    private fun handleLoginResult(result: Result<String>?) {
+        // view?.hideProgress()
 
+        if (result is Result.Success) {
+            view?.openHistory()
+        } else {
+            view?.showLoginFailed()
+        }
     }
 }

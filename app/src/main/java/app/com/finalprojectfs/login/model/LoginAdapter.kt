@@ -6,15 +6,15 @@ class LoginAdapter {
 
     fun login(login: String, password: String): Result<String> =
         try {
-            val token = POSTLogin(login, password)
+            val token = postLogin(login, password)
             Result.Success(token)
         } catch (e: Throwable) {
             Result.Error(IOException("Error logging in", e))
         }
 
-    private fun POSTLogin(login: String, password: String): String {
+    private fun postLogin(login: String, password: String): String {
 
-
+//Thread.sleep(1000)
         return "Bearer token"
     }
 }

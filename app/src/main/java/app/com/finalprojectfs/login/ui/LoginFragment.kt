@@ -3,18 +3,23 @@ package app.com.finalprojectfs.login.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
-import app.com.finalprojectfs.history.di.LoginPresenterFactory
+import app.com.finalprojectfs.history.ui.HistoryFragment
+import app.com.finalprojectfs.login.di.LoginPresenterFactory
 import app.com.finalprojectfs.login.presenter.LoginPresenter
+import app.com.finalprojectfs.main.ui.MainActivity
 import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : Fragment() {
 
     private var presenter: LoginPresenter? = null
+    private var mainActivity = MainActivity()
 
     companion object {
         fun newInstance() = LoginFragment()
@@ -25,6 +30,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.title = "Авторизация"
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
@@ -83,12 +89,22 @@ class LoginFragment : Fragment() {
         loading.visibility = View.GONE
     }
 
+    fun showLoginFailed() {
+        Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
+    }
+
     fun enableLoginButton(enable: Boolean) {
         loginButton.isEnabled = enable
     }
 
     fun enableRegisterButton(enable: Boolean) {
         registerButton.isEnabled = enable
+    }
+
+    fun openHistory() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.container, HistoryFragment.newInstance())
+            ?.commit()
     }
 
     override fun onDestroy() {
