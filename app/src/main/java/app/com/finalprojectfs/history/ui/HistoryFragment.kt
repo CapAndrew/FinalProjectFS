@@ -10,6 +10,7 @@ import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.di.HistoryPresenterFactory
 import app.com.finalprojectfs.history.domain.entity.LoanItem
 import app.com.finalprojectfs.history.presentation.HistoryPresenter
+import app.com.finalprojectfs.loan.ui.NewLoanFragment
 import kotlinx.android.synthetic.main.history_fragment.*
 
 class HistoryFragment : Fragment() {
@@ -18,9 +19,11 @@ class HistoryFragment : Fragment() {
 
     companion object {
         fun newInstance() = HistoryFragment()
+
     }
 
     private val loanAdapter = LoanAdapter()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,19 +51,30 @@ class HistoryFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = loanAdapter
 
-        val contactsList: MutableList<LoanItem> = arrayListOf()
-        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p"))
-        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p"))
-        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p"))
-
-
-        loanAdapter.updateItem(contactsList)
-
-
+        presenter?.updateHistoryList()
 
         newLoanButton.setOnClickListener {
-
+            openNewLoan()
         }
+    }
+
+
+    fun showEmptyHistory() {
+        empty_history.visibility = View.VISIBLE
+        recycler.visibility = View.GONE
+    }
+
+    fun showHistory(loanList: MutableList<LoanItem>) {
+        loanAdapter.updateItem(loanList)
+        recycler.visibility = View.VISIBLE
+        empty_history.visibility = View.GONE
+    }
+
+    fun openNewLoan() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.container, NewLoanFragment.newInstance())
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
     override fun onDestroy() {

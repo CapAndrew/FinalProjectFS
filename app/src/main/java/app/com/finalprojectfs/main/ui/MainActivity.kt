@@ -1,8 +1,7 @@
 package app.com.finalprojectfs.main.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.ui.HistoryFragment
 import app.com.finalprojectfs.login.ui.LoginFragment
@@ -18,9 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initPresenter()
-        if (!presenter?.isUserLoggedIn!!) {
-            openLogin()
-        }
+        presenter?.openMainFragment()
     }
 
     private fun initPresenter() {
@@ -31,6 +28,12 @@ class MainActivity : AppCompatActivity() {
     fun openLogin() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, LoginFragment.newInstance())
+            .commit()
+    }
+
+    fun openHistory() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, HistoryFragment.newInstance())
             .commit()
     }
 

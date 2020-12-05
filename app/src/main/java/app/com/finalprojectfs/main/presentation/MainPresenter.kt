@@ -4,7 +4,7 @@ import app.com.finalprojectfs.main.ui.MainActivity
 
 class MainPresenter {
 
-    var isUserLoggedIn: Boolean = false
+    var isUserLoggedIn: Boolean = true
 
     private var view: MainActivity? = null
 
@@ -14,5 +14,13 @@ class MainPresenter {
 
     fun detachView() {
         this.view = null
+    }
+
+    fun openMainFragment() {
+        if (!isUserLoggedIn) {
+            view?.openLogin()
+        } else {
+            view?.openHistory()
+        }
     }
 }

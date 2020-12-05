@@ -5,4 +5,6 @@
     <string name="login_button_text">Войти</string>
     <string name="register_button_text">Зарегистрироваться</string>
     <string name="get_new_loan">Получить заём</string>
+    <string name="empty_history_hint">"Здесь будет отображаться ваша история займов. \nА пока можете получить свой первый заём. \nНажмите на кнопку \"Получить заём\""
+    </string>
 </resources>
