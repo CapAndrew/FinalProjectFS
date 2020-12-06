@@ -4,7 +4,7 @@ import app.com.finalprojectfs.main.ui.MainActivity
 
 class MainPresenter {
 
-    var isUserLoggedIn: Boolean = true
+    var isUserLoggedIn: Boolean = false
 
     private var view: MainActivity? = null
 

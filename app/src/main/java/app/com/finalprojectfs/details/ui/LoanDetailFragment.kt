@@ -1,4 +1,4 @@
-package app.com.finalprojectfs.loan.ui
+package app.com.finalprojectfs.details.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
-import app.com.finalprojectfs.loan.di.NewLoanPresenterFactory
-import app.com.finalprojectfs.loan.presentation.NewLoanPresenter
+import app.com.finalprojectfs.details.di.LoanDetailPresenterFactory
+import app.com.finalprojectfs.details.presentation.LoanDetailPresenter
 import kotlinx.android.synthetic.main.loan_detail_fragment.*
 
-class NewLoanFragment : Fragment() {
+class LoanDetailFragment() : Fragment() {
 
-    private var presenter: NewLoanPresenter? = null
+    private var presenter: LoanDetailPresenter? = null
 
     companion object {
-        fun newInstance() = NewLoanFragment()
+        fun newInstance() = LoanDetailFragment()
     }
 
     override fun onCreateView(
@@ -23,18 +23,22 @@ class NewLoanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Новый заём"
-        return inflater.inflate(R.layout.new_loan_fragment, container, false)
+        activity?.title = "Детали"
+        return inflater.inflate(R.layout.loan_detail_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        initPresenter()
+
         super.onActivityCreated(savedInstanceState)
 
-        initPresenter()
+        val bundle = arguments
+        val loanId = bundle?.getInt("loan_id").toString()
+        loan_detail_date.text = loanId
     }
 
     private fun initPresenter() {
-        presenter = NewLoanPresenterFactory.create()
+        presenter = LoanDetailPresenterFactory.create()
         presenter?.attachView(this)
     }
 

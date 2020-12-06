@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.com.finalprojectfs.R
+import app.com.finalprojectfs.details.ui.LoanDetailFragment
 import app.com.finalprojectfs.history.di.HistoryPresenterFactory
 import app.com.finalprojectfs.history.domain.entity.LoanItem
 import app.com.finalprojectfs.history.presentation.HistoryPresenter
@@ -19,10 +21,10 @@ class HistoryFragment : Fragment() {
 
     companion object {
         fun newInstance() = HistoryFragment()
-
     }
 
-    private val loanAdapter = LoanAdapter()
+    private val loanAdapter =
+        LoanAdapter(onClickListener = { view, loanItem -> openLoanDetails(loanItem) })
 
 
     override fun onCreateView(
@@ -73,6 +75,18 @@ class HistoryFragment : Fragment() {
     fun openNewLoan() {
         fragmentManager?.beginTransaction()
             ?.replace(R.id.container, NewLoanFragment.newInstance())
+            ?.addToBackStack(null)
+            ?.commit()
+    }
+
+    fun openLoanDetails(loanItem: LoanItem) {
+        val fragment = LoanDetailFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putInt("loan_id", loanItem.id)
+        fragment.arguments = bundle
+
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.container, fragment)
             ?.addToBackStack(null)
             ?.commit()
     }

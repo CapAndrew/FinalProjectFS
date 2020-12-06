@@ -17,11 +17,11 @@ class HistoryPresenter {
 
     fun updateHistoryList() {
         val contactsList: MutableList<LoanItem> = arrayListOf()
-        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p"))
-        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p"))
-        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p"))
+        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p", 1))
+        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p", 2))
+        contactsList.add(LoanItem("12.05.1992", "RUN", "3000p", 3))
 
-    // view?.showEmptyHistory()
+        // view?.showEmptyHistory()
         view?.showHistory(contactsList)
     }
 }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.domain.entity.LoanItem
 
-class LoanAdapter() : RecyclerView.Adapter<LoanViewHolder>() {
+class LoanAdapter(private val onClickListener: (View, LoanItem) -> Unit) : RecyclerView.Adapter<LoanViewHolder>() {
     
     private val loansList = mutableListOf<LoanItem>()
 
@@ -37,5 +37,8 @@ class LoanAdapter() : RecyclerView.Adapter<LoanViewHolder>() {
     override fun onBindViewHolder(holder: LoanViewHolder, position: Int) {
         val loanItem: LoanItem = loansList[position]
         holder.bind(loanItem)
+        holder.itemView.setOnClickListener { view ->
+            onClickListener.invoke(view, loanItem)
+        }
     }
 }
