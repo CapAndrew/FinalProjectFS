@@ -1,28 +1,34 @@
 package app.com.finalprojectfs.login.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.ui.HistoryFragment
 import app.com.finalprojectfs.login.di.LoginPresenterFactory
 import app.com.finalprojectfs.login.presenter.LoginPresenter
-import app.com.finalprojectfs.main.ui.MainActivity
 import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : Fragment() {
 
     private var presenter: LoginPresenter? = null
-    private var mainActivity = MainActivity()
 
     companion object {
         fun newInstance() = LoginFragment()
+
+        private const val REQUEST_CODE_PERMISSION_INTERNET = 1
     }
 
     override fun onCreateView(
@@ -35,9 +41,14 @@ class LoginFragment : Fragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
         initPresenter()
         initViews()
-        super.onActivityCreated(savedInstanceState)
+
+        if (!checkInternetPermission()) {
+            askPermission(Manifest.permission.INTERNET)
+        }
     }
 
     private fun initPresenter() {
@@ -107,7 +118,19 @@ class LoginFragment : Fragment() {
             ?.commit()
     }
 
+    private fun checkInternetPermission(): Boolean {
+        return PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(
+            context!!,
+            Manifest.permission.INTERNET
+        )
+    }
+
+    private fun askPermission(vararg permissions: String) {
+        requestPermissions(permissions, REQUEST_CODE_PERMISSION_INTERNET)
+    }
+
     override fun onDestroy() {
+        presenter?.destroyDisposables()
         presenter?.detachView()
         super.onDestroy()
     }

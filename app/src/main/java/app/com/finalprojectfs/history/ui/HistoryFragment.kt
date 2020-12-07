@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.com.finalprojectfs.R
@@ -24,7 +23,7 @@ class HistoryFragment : Fragment() {
     }
 
     private val loanAdapter =
-        LoanAdapter(onClickListener = { view, loanItem -> openLoanDetails(loanItem) })
+        HistoryAdapter(onClickListener = { view, loanItem -> openLoanDetails(loanItem) })
 
 
     override fun onCreateView(
