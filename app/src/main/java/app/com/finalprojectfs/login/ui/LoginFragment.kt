@@ -5,15 +5,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.ui.HistoryFragment
@@ -102,6 +99,10 @@ class LoginFragment : Fragment() {
 
     fun showLoginFailed() {
         Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
+    }
+
+    fun showRegistrationFailed() {
+        Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
     }
 
     fun enableLoginButton(enable: Boolean) {
