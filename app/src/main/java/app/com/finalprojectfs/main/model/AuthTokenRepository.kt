@@ -17,11 +17,10 @@ class AuthTokenRepository(context: Context?) {
         Log.e("AuthRep", "getAuthToken ${sharedPrefs?.getString(AUTH_TOKEN, null).orEmpty()}")
 
         return sharedPrefs?.getString(AUTH_TOKEN, null).orEmpty()
-
     }
 
     fun setAuthToken(authToken: String) {
-        Log.e("AuthRep", "getAuthToken $sharedPrefs and token is $authToken")
+        Log.e("AuthRep", "setAuthToken $sharedPrefs and token is $authToken")
         sharedPrefs?.edit()
             ?.putString(AUTH_TOKEN, authToken)
             ?.apply()

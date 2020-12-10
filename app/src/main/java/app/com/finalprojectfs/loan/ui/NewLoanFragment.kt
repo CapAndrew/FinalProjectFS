@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.loan.di.NewLoanPresenterFactory
 import app.com.finalprojectfs.loan.presentation.NewLoanPresenter
-import kotlinx.android.synthetic.main.loan_detail_fragment.*
 
 class NewLoanFragment : Fragment() {
 

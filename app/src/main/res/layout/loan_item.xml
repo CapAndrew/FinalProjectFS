@@ -26,14 +26,12 @@
             <TextView
                 android:id="@+id/loan_date"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="Date" />
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/loan_state"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="State"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -47,8 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="right"
-                android:text="300р" />
+                android:layout_marginRight="5dp"
+                android:gravity="end" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,9 +1,7 @@
 package app.com.finalprojectfs.history.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.com.finalprojectfs.R
@@ -12,6 +10,7 @@ import app.com.finalprojectfs.history.di.HistoryPresenterFactory
 import app.com.finalprojectfs.history.model.entity.LoanItem
 import app.com.finalprojectfs.history.presentation.HistoryPresenter
 import app.com.finalprojectfs.loan.ui.NewLoanFragment
+import app.com.finalprojectfs.login.ui.LoginFragment
 import kotlinx.android.synthetic.main.history_fragment.*
 
 class HistoryFragment : Fragment() {
@@ -44,7 +43,26 @@ class HistoryFragment : Fragment() {
         initViews()
         presenter?.fetchLoansAll(authToken)
 
+        setHasOptionsMenu(true)
         super.onActivityCreated(savedInstanceState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.itemId
+
+        if (id == R.id.action_exit) {
+            presenter?.clearAuthorization()
+            openLogin()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initPresenter() {
@@ -59,10 +77,6 @@ class HistoryFragment : Fragment() {
 
         newLoanButton.setOnClickListener {
             openNewLoan()
-        }
-
-        clearAuthToken.setOnClickListener {
-            presenter?.clearAuthorization()
         }
     }
 
@@ -84,10 +98,16 @@ class HistoryFragment : Fragment() {
             ?.commit()
     }
 
+    fun openLogin() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.container, LoginFragment.newInstance())
+            ?.commit()
+    }
+
     fun openLoanDetails(loanItem: LoanItem) {
         val fragment = LoanDetailFragment.newInstance()
         val bundle = Bundle()
-        bundle.putInt("loan_id", loanItem.id)
+        bundle.putLong("loan_id", loanItem.id!!)
         fragment.arguments = bundle
 
         fragmentManager?.beginTransaction()

@@ -56,10 +56,10 @@ class HistoryPresenter {
                     response.forEach {
                         contactsList.add(
                             LoanItem(
-                                it.date.toString(),
-                                it.state.toString(),
-                                it.amount.toString(),
-                                it.id!!.toInt()
+                                it.date,
+                                it.state,
+                                it.amount,
+                                it.id
                             )
                         )
                     }

@@ -13,8 +13,8 @@ class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var amount: TextView = itemView.findViewById(R.id.loan_amount)
 
     fun bind(item: LoanItem) {
-        date.text = item.date
+        date.text = item.date.toString()
         state.text = item.state
-        amount.text = item.amount
+        amount.text = item.amount.toString()
     }
 }
