@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.details.ui.LoanDetailFragment
 import app.com.finalprojectfs.history.di.HistoryPresenterFactory
-import app.com.finalprojectfs.history.domain.entity.LoanItem
+import app.com.finalprojectfs.history.model.entity.LoanItem
 import app.com.finalprojectfs.history.presentation.HistoryPresenter
 import app.com.finalprojectfs.loan.ui.NewLoanFragment
 import kotlinx.android.synthetic.main.history_fragment.*
@@ -23,7 +23,8 @@ class HistoryFragment : Fragment() {
     }
 
     private val loanAdapter =
-        HistoryAdapter(onClickListener = { view, loanItem -> openLoanDetails(loanItem) })
+        HistoryAdapter(onClickListener = { _, loanItem -> openLoanDetails(loanItem) })
+    private lateinit var authToken: String
 
 
     override fun onCreateView(
@@ -36,8 +37,12 @@ class HistoryFragment : Fragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        val bundle = arguments
+        authToken = bundle?.getString("authToken").toString()
+
         initPresenter()
         initViews()
+        presenter?.fetchLoansAll(authToken)
 
         super.onActivityCreated(savedInstanceState)
     }
@@ -52,13 +57,14 @@ class HistoryFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = loanAdapter
 
-        presenter?.updateHistoryList()
-
         newLoanButton.setOnClickListener {
             openNewLoan()
         }
-    }
 
+        clearAuthToken.setOnClickListener {
+            presenter?.clearAuthorization()
+        }
+    }
 
     fun showEmptyHistory() {
         empty_history.visibility = View.VISIBLE

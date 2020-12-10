@@ -5,10 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.com.finalprojectfs.R
-import app.com.finalprojectfs.history.domain.entity.LoanItem
+import app.com.finalprojectfs.history.model.entity.LoanItem
 
-class HistoryAdapter(private val onClickListener: (View, LoanItem) -> Unit) : RecyclerView.Adapter<HistoryViewHolder>() {
-    
+class HistoryAdapter(private val onClickListener: (View, LoanItem) -> Unit) :
+    RecyclerView.Adapter<HistoryViewHolder>() {
+
     private val loansList = mutableListOf<LoanItem>()
 
     fun updateItem(newItems: List<LoanItem>) {

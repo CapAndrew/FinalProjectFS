@@ -23,7 +23,6 @@ class LoanDetailFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Детали"
         return inflater.inflate(R.layout.loan_detail_fragment, container, false)
     }
 
@@ -34,7 +33,7 @@ class LoanDetailFragment() : Fragment() {
 
         val bundle = arguments
         val loanId = bundle?.getInt("loan_id").toString()
-        loan_detail_date.text = loanId
+        activity?.title = "Детали $loanId"
     }
 
     private fun initPresenter() {

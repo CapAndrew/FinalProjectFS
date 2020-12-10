@@ -1,4 +1,4 @@
-package app.com.finalprojectfs.login.model
+package app.com.finalprojectfs.login.model.entity
 
 sealed class Result<out T : Any> {
 
@@ -7,7 +7,7 @@ sealed class Result<out T : Any> {
 
     override fun toString(): String {
         return when (this) {
-            is Success<*> -> "Success[data=$data]"
+            is Success<*> -> data.toString()
             is Error -> "Error[exception=$exception]"
         }
     }

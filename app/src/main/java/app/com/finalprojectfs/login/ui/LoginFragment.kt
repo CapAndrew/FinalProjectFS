@@ -113,9 +113,14 @@ class LoginFragment : Fragment() {
         registerButton.isEnabled = enable
     }
 
-    fun openHistory() {
+    fun openHistory(authToken: String) {
+        val fragment = HistoryFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putString("authToken", authToken)
+        fragment.arguments = bundle
+
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.container, HistoryFragment.newInstance())
+            ?.replace(R.id.container, fragment)
             ?.commit()
     }
 
