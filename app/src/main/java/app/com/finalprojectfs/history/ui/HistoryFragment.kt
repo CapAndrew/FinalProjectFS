@@ -5,7 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.com.finalprojectfs.R
-import app.com.finalprojectfs.details.ui.LoanDetailFragment
+import app.com.finalprojectfs.details.ui.LoanDetailsFragment
 import app.com.finalprojectfs.history.di.HistoryPresenterFactory
 import app.com.finalprojectfs.history.model.entity.LoanItem
 import app.com.finalprojectfs.history.presentation.HistoryPresenter
@@ -105,9 +105,10 @@ class HistoryFragment : Fragment() {
     }
 
     fun openLoanDetails(loanItem: LoanItem) {
-        val fragment = LoanDetailFragment.newInstance()
+        val fragment = LoanDetailsFragment.newInstance()
         val bundle = Bundle()
-        bundle.putLong("loan_id", loanItem.id!!)
+        bundle.putLong("loanId", loanItem.id!!)
+        bundle.putString("authToken", authToken)
         fragment.arguments = bundle
 
         fragmentManager?.beginTransaction()
@@ -117,6 +118,7 @@ class HistoryFragment : Fragment() {
     }
 
     override fun onDestroy() {
+        presenter?.destroyDisposables()
         presenter?.detachView()
         super.onDestroy()
     }

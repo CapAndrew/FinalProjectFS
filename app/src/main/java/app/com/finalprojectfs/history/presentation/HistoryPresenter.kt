@@ -70,4 +70,10 @@ class HistoryPresenter {
 
         disposable?.add(historyDisposable!!)
     }
+
+    fun destroyDisposables() {
+        if (disposable != null) {
+            disposable?.dispose()
+        }
+    }
 }

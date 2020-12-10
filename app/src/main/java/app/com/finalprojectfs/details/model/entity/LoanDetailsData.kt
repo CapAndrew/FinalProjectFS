@@ -1,10 +1,10 @@
-package app.com.finalprojectfs.history.model.entity
+package app.com.finalprojectfs.details.model.entity
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class LoansHistoryData(
+data class LoanDetailsData(
     @SerializedName("amount")
     @Expose
     var amount: Int? = null,
