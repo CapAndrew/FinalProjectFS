@@ -3,7 +3,7 @@ package app.com.finalprojectfs.login.presenter
 import android.util.Log
 import app.com.finalprojectfs.login.model.RegistrationData
 import app.com.finalprojectfs.login.model.entity.LoginData
-import app.com.finalprojectfs.login.model.entity.Result
+import app.com.finalprojectfs.main.model.entity.Result
 import app.com.finalprojectfs.login.model.retrofit.LoginApi
 import app.com.finalprojectfs.login.model.retrofit.RetrofitLoginService
 import app.com.finalprojectfs.login.ui.LoginFragment
@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers.io
 import java.io.IOException
+import java.lang.Exception
 
 
 class LoginPresenter {
@@ -53,12 +54,11 @@ class LoginPresenter {
             .subscribe(
                 { response ->
                     Log.e("LoginPresenter", "Success: ${Result.Success(response)}")
-                    handleLoginResult(Result.Success("Login successful"), response)
-
+                    handleLoginResult(Result.Success(response))
                 },
                 { t ->
                     Log.e("LoginPresenter", "Error: $t")
-                    handleLoginResult(Result.Error(IOException("Error logging in", t)), null)
+                    handleLoginResult(Result.Error(IOException("Error logging in", t)))
                 })
 
         disposable?.add(loginDisposable!!)
@@ -81,47 +81,76 @@ class LoginPresenter {
                 {
                     Log.e("LoginPresenter", "Success: $registrationResponse$")
                     Log.e("LoginPresenter", "Success: $loginResponse$")
-                    handleRegistrationResult(Result.Success("Login successful"), loginResponse)
+                    handleRegistrationResult(Result.Success(loginResponse))
                 },
                 { t ->
                     handleRegistrationResult(
-                        Result.Error(IOException("Registration error", t)),
-                        null
+                        Result.Error(IOException("Registration error", t))
                     )
                 }
             )
         disposable?.add(registrationDisposable)
     }
 
+    private fun handleLoginResult(result: Result) {
+
+        view?.hideProgress()
+
+        Log.e("LoginPresenter", "Result.data: ${result.data}")
+
+
+        if (result is Result.Success) {
+            val token: String = result.data as String
+            sharedPrefs.setAuthToken(token)
+            Log.e("LoginPresenter", "Prefs: ${sharedPrefs.getAuthToken()}$")
+            view?.openHistory(token)
+        } else {
+            val exception = result.data as IOException
+            handleLoginError(exception)
+        }
+    }
+
+    private fun handleLoginError(exception: Exception) {
+        Log.e("LoginPresenter", ">>${exception.cause}<<")
+
+        val exceptionText = when (exception.cause?.message) {
+            "HTTP 401 " -> "Ошибка авторизации"
+            "HTTP 403 " -> "Ошибка авторизации"
+            "HTTP 404 " -> "Пользователь с указанными логином и паролем не найден"
+            else -> "Внутренняя ошибка сервера"
+        }
+        view?.showActionFailed(exceptionText)
+    }
+
+    private fun handleRegistrationResult(result: Result) {
+
+        view?.hideProgress()
+
+        if (result is Result.Success) {
+            val token: String = result.data as String
+            sharedPrefs.setAuthToken(token)
+            view?.openHistory(token)
+        } else {
+            val exception = result.data as IOException
+            handleRegistrationError(exception)
+        }
+    }
+
+    private fun handleRegistrationError(exception: Exception) {
+        Log.e("LoginPresenter", ">>${exception.cause}<<")
+
+        val exceptionText = when (exception.cause?.message) {
+            "HTTP 401 " -> "Ошибка регистрации"
+            "HTTP 403 " -> "Ошибка регистрации"
+            "HTTP 400 " -> "Пользователь с таким именем уже существует"
+            else -> "Внутренняя ошибка сервера"
+        }
+        view?.showActionFailed(exceptionText)
+    }
+
     fun destroyDisposables() {
         if (disposable != null) {
             disposable?.dispose()
-        }
-    }
-
-    private fun handleLoginResult(result: Result<String>?, data: String?) {
-        view?.hideProgress()
-
-        Log.e("LoginPresenter", "Result.data: $Result")
-
-
-        if (result is Result.Success) {
-            sharedPrefs.setAuthToken(data!!)
-            Log.e("LoginPresenter", "Prefs: ${sharedPrefs.getAuthToken()}$")
-            view?.openHistory(data)
-        } else {
-            view?.showLoginFailed()
-        }
-    }
-
-    private fun handleRegistrationResult(result: Result<String>?, data: String?) {
-        view?.hideProgress()
-
-        if (result is Result.Success) {
-            sharedPrefs.setAuthToken(data!!)
-            view?.openHistory(data)
-        } else {
-            view?.showRegistrationFailed()
         }
     }
 }

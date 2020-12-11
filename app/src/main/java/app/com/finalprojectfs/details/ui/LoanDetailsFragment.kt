@@ -9,6 +9,7 @@ import app.com.finalprojectfs.R
 import app.com.finalprojectfs.details.di.LoanDetailsPresenterFactory
 import app.com.finalprojectfs.details.presentation.LoanDetailsPresenter
 import app.com.finalprojectfs.main.model.entity.LoanData
+import app.com.finalprojectfs.main.model.entity.Result
 import kotlinx.android.synthetic.main.loan_detail_fragment.*
 
 class LoanDetailsFragment() : Fragment() {
@@ -42,16 +43,17 @@ class LoanDetailsFragment() : Fragment() {
         activity?.title = "Детали перевода №$loanId"
     }
 
-    fun updateLoanDetails(loanDetails: LoanData) {
-        val lastFirstName = "${loanDetails.lastName} ${loanDetails.firstName}"
+    fun updateLoanDetails(result: Result) {
+        val loanData : LoanData = result.data as LoanData
+        val lastFirstName = "${loanData.lastName} ${loanData.firstName}"
 
-        loan_detail_date.text = loanDetails.date.toString()
+        loan_detail_date.text = loanData.date.toString()
         loan_detail_last_first_name.text = lastFirstName
-        loan_detail_phone.text = loanDetails.phoneNumber
-        loan_detail_amount.text = loanDetails.amount.toString()
-        loan_detail_percent.text = loanDetails.percent.toString()
-        loan_detail_period.text = loanDetails.period.toString()
-        loan_detail_state.text = loanDetails.state.toString()
+        loan_detail_phone.text = loanData.phoneNumber
+        loan_detail_amount.text = loanData.amount.toString()
+        loan_detail_percent.text = loanData.percent.toString()
+        loan_detail_period.text = loanData.period.toString()
+        loan_detail_state.text = loanData.state.toString()
     }
 
     private fun initPresenter() {

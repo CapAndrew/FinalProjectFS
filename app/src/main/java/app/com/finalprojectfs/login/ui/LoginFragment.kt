@@ -15,6 +15,7 @@ import app.com.finalprojectfs.history.ui.HistoryFragment
 import app.com.finalprojectfs.login.di.LoginPresenterFactory
 import app.com.finalprojectfs.login.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.login_fragment.*
+import java.io.IOException
 
 class LoginFragment : Fragment() {
 
@@ -95,12 +96,8 @@ class LoginFragment : Fragment() {
         loading.visibility = View.GONE
     }
 
-    fun showLoginFailed() {
-        Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
-    }
-
-    fun showRegistrationFailed() {
-        Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
+    fun showActionFailed(errorText: String) {
+        Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
     }
 
     fun enableLoginButton(enable: Boolean) {

@@ -4,6 +4,7 @@ import android.util.Log
 import app.com.finalprojectfs.details.model.retrofit.LoanDetailsApi
 import app.com.finalprojectfs.details.model.retrofit.RetrofitLoanDetailsService
 import app.com.finalprojectfs.details.ui.LoanDetailsFragment
+import app.com.finalprojectfs.main.model.entity.Result
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -27,7 +28,7 @@ class LoanDetailsPresenter {
             ?.subscribe(
                 { response ->
                     Log.e("LoanDetailsPresenter", "Success: $response")
-                    view?.updateLoanDetails(response)
+                    view?.updateLoanDetails(Result.Success(response))
                 },
                 { t ->
                     Log.e("LoanDetailsPresenter", "Error: $t")
