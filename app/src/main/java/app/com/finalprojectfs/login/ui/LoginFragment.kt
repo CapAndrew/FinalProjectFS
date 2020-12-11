@@ -82,10 +82,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-    fun showToast(text: String) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-    }
-
     fun showProgress() {
         loading.visibility = View.VISIBLE
         userLogin.clearFocus()

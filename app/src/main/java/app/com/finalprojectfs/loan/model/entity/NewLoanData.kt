@@ -1,4 +1,4 @@
-package app.com.finalprojectfs.loan.domain.entity
+package app.com.finalprojectfs.loan.model.entity
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

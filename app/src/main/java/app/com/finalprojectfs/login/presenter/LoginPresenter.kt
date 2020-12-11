@@ -100,10 +100,10 @@ class LoginPresenter {
 
 
         if (result is Result.Success) {
-            val token: String = result.data as String
-            sharedPrefs.setAuthToken(token)
+            val authToken: String = result.data as String
+            sharedPrefs.setAuthToken(authToken)
             Log.e("LoginPresenter", "Prefs: ${sharedPrefs.getAuthToken()}$")
-            view?.openHistory(token)
+            view?.openHistory(authToken)
         } else {
             handleLoginError(result.data as IOException)
         }

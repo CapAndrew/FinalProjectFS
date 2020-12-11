@@ -1,7 +1,7 @@
-package app.com.finalprojectfs.loan.domain.retrofit
+package app.com.finalprojectfs.loan.model.retrofit
 
-import app.com.finalprojectfs.loan.domain.entity.LoanConditionsData
-import app.com.finalprojectfs.loan.domain.entity.NewLoanData
+import app.com.finalprojectfs.loan.model.entity.LoanConditionsData
+import app.com.finalprojectfs.loan.model.entity.NewLoanData
 import app.com.finalprojectfs.main.model.entity.LoanData
 import io.reactivex.Flowable
 import retrofit2.http.Body

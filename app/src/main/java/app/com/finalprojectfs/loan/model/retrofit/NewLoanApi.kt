@@ -1,6 +1,5 @@
-package app.com.finalprojectfs.loan.domain.retrofit
+package app.com.finalprojectfs.loan.model.retrofit
 
-import app.com.finalprojectfs.history.model.retrofit.RetrofitHistoryService
 import app.com.finalprojectfs.main.model.RetrofitClient
 
 object NewLoanApi {
