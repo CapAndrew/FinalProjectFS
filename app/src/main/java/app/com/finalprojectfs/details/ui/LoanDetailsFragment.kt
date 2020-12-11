@@ -1,13 +1,13 @@
 package app.com.finalprojectfs.details.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.details.di.LoanDetailsPresenterFactory
 import app.com.finalprojectfs.details.presentation.LoanDetailsPresenter
+import app.com.finalprojectfs.login.ui.LoginFragment
 import app.com.finalprojectfs.main.model.entity.LoanData
 import app.com.finalprojectfs.main.model.entity.Result
 import kotlinx.android.synthetic.main.loan_detail_fragment.*
@@ -33,18 +33,45 @@ class LoanDetailsFragment() : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         initPresenter()
 
-        super.onActivityCreated(savedInstanceState)
-
         val bundle = arguments
         loanId = bundle?.getLong("loanId")
         authToken = bundle?.getString("authToken").toString()
 
         presenter?.fetchLoanById(loanId!!, authToken)
         activity?.title = "Детали перевода №$loanId"
+
+        setHasOptionsMenu(true)
+        super.onActivityCreated(savedInstanceState)
     }
 
-    fun updateLoanDetails(result: Result) {
-        val loanData : LoanData = result.data as LoanData
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.itemId
+
+        if (id == R.id.action_exit)
+            presenter?.clearAuthorization()
+
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun openLogin() {
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.container, LoginFragment.newInstance())
+            ?.commit()
+    }
+
+    fun showActionFailed(errorText: String) {
+        Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
+    }
+
+    fun updateLoanDetails(loanData: LoanData) {
         val lastFirstName = "${loanData.lastName} ${loanData.firstName}"
 
         loan_detail_date.text = loanData.date.toString()

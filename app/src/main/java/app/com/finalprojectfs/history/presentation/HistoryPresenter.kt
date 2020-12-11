@@ -62,7 +62,7 @@ class HistoryPresenter {
                 { t ->
                     Log.e("HistoryPresenter", "Error: $t")
                     handleFetchLoansAllResult(
-                        Result.Error(IOException("Upload history error", t)))
+                        Result.Error(IOException("Fetch history error", t)))
                 })
 
         disposable?.add(historyDisposable!!)
