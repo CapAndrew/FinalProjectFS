@@ -1,6 +1,7 @@
 package app.com.finalprojectfs.history.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -92,8 +93,15 @@ class HistoryFragment : Fragment() {
     }
 
     fun openNewLoan() {
+        val fragment = NewLoanFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putString("authToken", authToken)
+        fragment.arguments = bundle
+
+        Log.e("ActualToken", authToken)
+
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.container, NewLoanFragment.newInstance())
+            ?.replace(R.id.container, fragment)
             ?.addToBackStack(null)
             ?.commit()
     }

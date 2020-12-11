@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.details.di.LoanDetailsPresenterFactory
-import app.com.finalprojectfs.details.model.entity.LoanDetailsData
 import app.com.finalprojectfs.details.presentation.LoanDetailsPresenter
+import app.com.finalprojectfs.main.model.entity.LoanData
 import kotlinx.android.synthetic.main.loan_detail_fragment.*
 
 class LoanDetailsFragment() : Fragment() {
@@ -42,8 +42,9 @@ class LoanDetailsFragment() : Fragment() {
         activity?.title = "Детали перевода №$loanId"
     }
 
-    fun updateLoanDetails(loanDetails: LoanDetailsData){
+    fun updateLoanDetails(loanDetails: LoanData) {
         val lastFirstName = "${loanDetails.lastName} ${loanDetails.firstName}"
+
         loan_detail_date.text = loanDetails.date.toString()
         loan_detail_last_first_name.text = lastFirstName
         loan_detail_phone.text = loanDetails.phoneNumber

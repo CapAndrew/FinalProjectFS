@@ -1,10 +1,10 @@
-package app.com.finalprojectfs.details.model.entity
+package app.com.finalprojectfs.main.model.entity
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class LoanDetailsData(
+data class LoanData(
     @SerializedName("amount")
     @Expose
     var amount: Int? = null,
@@ -31,7 +31,7 @@ data class LoanDetailsData(
 
     @SerializedName("period")
     @Expose
-    var period: String? = null,
+    var period: Int? = null,
 
     @SerializedName("phoneNumber")
     @Expose

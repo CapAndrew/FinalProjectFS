@@ -191,7 +191,7 @@
                     android:id="@+id/loan_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Сумма"
+                    android:text="0"
                     app:layout_constraintStart_toEndOf="@id/loan_amount_hint"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -219,7 +219,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:id="@+id/newLoanButton"
             android:text="Получить заём!"
+            android:enabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form" />
 

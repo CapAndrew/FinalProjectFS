@@ -102,6 +102,9 @@ class LoginPresenter {
     private fun handleLoginResult(result: Result<String>?, data: String?) {
         view?.hideProgress()
 
+        Log.e("LoginPresenter", "Result.data: $Result")
+
+
         if (result is Result.Success) {
             sharedPrefs.setAuthToken(data!!)
             Log.e("LoginPresenter", "Prefs: ${sharedPrefs.getAuthToken()}$")
