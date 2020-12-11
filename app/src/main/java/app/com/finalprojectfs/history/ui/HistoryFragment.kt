@@ -3,6 +3,7 @@ package app.com.finalprojectfs.history.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.com.finalprojectfs.R
@@ -30,7 +31,7 @@ class HistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         activity?.title = "История займов"
         return inflater.inflate(R.layout.history_fragment, container, false)
@@ -58,10 +59,9 @@ class HistoryFragment : Fragment() {
 
         val id = item.itemId
 
-        if (id == R.id.action_exit) {
+        if (id == R.id.action_exit)
             presenter?.clearAuthorization()
-            openLogin()
-        }
+
 
         return super.onOptionsItemSelected(item)
     }
@@ -90,6 +90,10 @@ class HistoryFragment : Fragment() {
         loanAdapter.updateItem(loanList)
         recycler.visibility = View.VISIBLE
         empty_history.visibility = View.GONE
+    }
+
+    fun showActionFailed(errorText: String) {
+        Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
     }
 
     fun openNewLoan() {

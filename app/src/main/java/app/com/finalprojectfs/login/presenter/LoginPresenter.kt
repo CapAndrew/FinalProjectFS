@@ -105,8 +105,7 @@ class LoginPresenter {
             Log.e("LoginPresenter", "Prefs: ${sharedPrefs.getAuthToken()}$")
             view?.openHistory(token)
         } else {
-            val exception = result.data as IOException
-            handleLoginError(exception)
+            handleLoginError(result.data as IOException)
         }
     }
 
@@ -114,10 +113,8 @@ class LoginPresenter {
         Log.e("LoginPresenter", ">>${exception.cause}<<")
 
         val exceptionText = when (exception.cause?.message) {
-            "HTTP 401 " -> "Ошибка авторизации"
-            "HTTP 403 " -> "Ошибка авторизации"
             "HTTP 404 " -> "Пользователь с указанными логином и паролем не найден"
-            else -> "Внутренняя ошибка сервера"
+            else -> "Ошибка авторизации"
         }
         view?.showActionFailed(exceptionText)
     }
@@ -131,8 +128,7 @@ class LoginPresenter {
             sharedPrefs.setAuthToken(token)
             view?.openHistory(token)
         } else {
-            val exception = result.data as IOException
-            handleRegistrationError(exception)
+            handleRegistrationError(result.data as IOException)
         }
     }
 
@@ -140,10 +136,8 @@ class LoginPresenter {
         Log.e("LoginPresenter", ">>${exception.cause}<<")
 
         val exceptionText = when (exception.cause?.message) {
-            "HTTP 401 " -> "Ошибка регистрации"
-            "HTTP 403 " -> "Ошибка регистрации"
             "HTTP 400 " -> "Пользователь с таким именем уже существует"
-            else -> "Внутренняя ошибка сервера"
+            else -> "Ошибка регистрации"
         }
         view?.showActionFailed(exceptionText)
     }
