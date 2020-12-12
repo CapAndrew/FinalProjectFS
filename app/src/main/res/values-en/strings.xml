@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Loans 2.0</string>
+    <string name="login_hint">Name</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button_text">Enter</string>
+    <string name="register_button_text">Register</string>
+    <string name="get_new_loan">New loan</string>
+    <string name="empty_history_hint">"Your loan history will be displayed here. \nIn the meantime, you can get your first loan. \nClick on the button \"New loan\""
+    </string>
+    <string name="loan_conditions">Loan conditions:</string>
+    <string name="loan_conditions_max_amount">Loan max price:</string>
+    <string name="loan_conditions_percent">Percent:</string>
+    <string name="loan_conditions_period">Period:</string>
+    <string name="loan_form_title">To receive a loan, fill in the following fields:</string>
+    <string name="loan_form_last_name">Last name:</string>
+    <string name="loan_form_first_name">First name:</string>
+    <string name="loan_form_phone">Phone:</string>
+    <string name="loan_form_amount">Amount:</string>
+    <string name="loan_seekbar_amount">Choose amount</string>
+    <string name="new_loan_button">New loan</string>
+    <string name="loan_detail_date">Application date:</string>
+    <string name="loan_detail_last_first_name">Full name of borrower:</string>
+    <string name="loan_detail_phone">Phone of borrower:</string>
+    <string name="loan_detail_amount">Loan amount (in rubles):</string>
+    <string name="loan_detail_percent">Percent (in %):</string>
+    <string name="loan_detail_period">Period (in days):</string>
+    <string name="loan_detail_state">State:</string>
+    <string name="how_to_get_loan">You can get a loan at the branch of partner banks, or simply credit it to the card, indicating the details (the service is not available in your region)</string>
+    <string name="loan_details">Loan details</string>
+    <string name="loans_history">Loans history</string>
+    <string name="new_loan">New loan</string>
+    <string name="authorization">Authorization</string>
+</resources>

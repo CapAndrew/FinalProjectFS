@@ -26,4 +26,8 @@
     <string name="loan_detail_period">Период (в днях):</string>
     <string name="loan_detail_state">Статус:</string>
     <string name="how_to_get_loan">Получить заём можно в отделении банков-партнёров, либо просто зачислить его на карту, указав реквизиты(услуга не доступна в вашем регионе)</string>
+    <string name="loan_details">Детали займа</string>
+    <string name="loans_history">История займов</string>
+    <string name="new_loan">Новый заём</string>
+    <string name="authorization">Авторизация</string>
 </resources>

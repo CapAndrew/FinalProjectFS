@@ -38,7 +38,7 @@ class LoanDetailsFragment() : Fragment() {
         authToken = bundle?.getString("authToken").toString()
 
         presenter?.fetchLoanById(loanId!!, authToken)
-        activity?.title = "Детали перевода №$loanId"
+        activity?.title = "${getString(R.string.loan_details)} №$loanId"
 
         setHasOptionsMenu(true)
         super.onActivityCreated(savedInstanceState)

@@ -34,7 +34,7 @@ class NewLoanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Новый заём"
+        activity?.title = getString(R.string.new_loan)
         return inflater.inflate(R.layout.new_loan_fragment, container, false)
     }
 

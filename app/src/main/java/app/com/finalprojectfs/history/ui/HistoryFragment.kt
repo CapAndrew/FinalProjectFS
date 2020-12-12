@@ -33,7 +33,7 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        activity?.title = "История займов"
+        activity?.title = getString(R.string.loans_history)
         return inflater.inflate(R.layout.history_fragment, container, false)
     }
 

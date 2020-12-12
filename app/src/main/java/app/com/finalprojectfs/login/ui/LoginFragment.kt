@@ -34,7 +34,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Авторизация"
+        activity?.title = getString(R.string.authorization)
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
