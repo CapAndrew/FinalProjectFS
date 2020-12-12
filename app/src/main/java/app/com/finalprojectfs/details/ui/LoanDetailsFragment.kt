@@ -127,6 +127,10 @@ class LoanDetailsFragment() : Fragment() {
         activity?.main_loading?.visibility = View.GONE
     }
 
+    fun showHowToGetHint(){
+        how_to_get_loan_hint.visibility = View.VISIBLE
+    }
+
     fun updateLoanDetails(loanData: LoanData) {
         val lastFirstName = "${loanData.lastName} ${loanData.firstName}"
 

@@ -21,9 +21,9 @@
     <string name="loan_detail_date">Дата подачи заявки:</string>
     <string name="loan_detail_last_first_name">ФИО заёмщика:</string>
     <string name="loan_detail_phone">Телефон заёмщика:</string>
-    <string name="loan_detail_amount">Сумма займа:</string>
-    <string name="loan_detail_percent">Процент:</string>
-    <string name="loan_detail_period">Период:</string>
+    <string name="loan_detail_amount">Сумма займа (в рублях):</string>
+    <string name="loan_detail_percent">Процент (в %):</string>
+    <string name="loan_detail_period">Период (в днях):</string>
     <string name="loan_detail_state">Статус:</string>
     <string name="how_to_get_loan">Получить заём можно в отделении банков-партнёров, либо просто зачислить его на карту, указав реквизиты(услуга не доступна в вашем регионе)</string>
 </resources>

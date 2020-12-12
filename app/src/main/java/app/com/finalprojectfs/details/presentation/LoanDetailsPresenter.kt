@@ -7,6 +7,7 @@ import app.com.finalprojectfs.details.ui.LoanDetailsFragment
 import app.com.finalprojectfs.main.model.AuthTokenRepository
 import app.com.finalprojectfs.main.model.entity.LoanData
 import app.com.finalprojectfs.main.model.entity.Result
+import app.com.finalprojectfs.main.model.entity.State
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -53,8 +54,14 @@ class LoanDetailsPresenter {
 
     private fun handleFetchLoanByIdResult(result: Result) {
         view?.hideProgress()
+
+        val loanData = result.data as LoanData
+
         if (result is Result.Success) {
-            view?.updateLoanDetails(result.data as LoanData)
+            view?.updateLoanDetails(loanData)
+            if(loanData.state == State.APPROVED.toString()){
+                view?.showHowToGetHint()
+            }
         } else {
             handleFetchByIdError(result.data as Exception)
         }
