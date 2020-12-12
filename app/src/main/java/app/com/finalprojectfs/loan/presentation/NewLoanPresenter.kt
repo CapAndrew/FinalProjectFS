@@ -34,6 +34,7 @@ class NewLoanPresenter {
     }
 
     fun fetchLoanConditions(authToken: String) {
+        view?.showProgress()
         Log.e("NewLoanPresenter", "Fetch new conditions by authToken = $authToken")
         val loanConditionDisposable = nLService?.getLoansConditions(authToken)
             ?.subscribeOn(Schedulers.io())
@@ -54,7 +55,7 @@ class NewLoanPresenter {
     }
 
     private fun handleFetchLoanConditionResult(result: Result) {
-
+        view?.hideProgress()
         if (result is Result.Success) {
             view?.updateLoanConditions(result.data as LoanConditionsData)
         } else {

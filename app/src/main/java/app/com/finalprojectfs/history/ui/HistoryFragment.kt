@@ -14,6 +14,7 @@ import app.com.finalprojectfs.history.presentation.HistoryPresenter
 import app.com.finalprojectfs.loan.ui.NewLoanFragment
 import app.com.finalprojectfs.login.ui.LoginFragment
 import kotlinx.android.synthetic.main.history_fragment.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class HistoryFragment : Fragment() {
 
@@ -140,6 +141,14 @@ class HistoryFragment : Fragment() {
         loanAdapter.updateItem(loanList)
         recycler.visibility = View.VISIBLE
         empty_history.visibility = View.GONE
+    }
+
+    fun showProgress() {
+        activity?.main_loading?.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        activity?.main_loading?.visibility = View.GONE
     }
 
     private fun openNewLoan() {

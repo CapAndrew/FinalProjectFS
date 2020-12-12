@@ -17,6 +17,7 @@ import app.com.finalprojectfs.loan.model.entity.LoanConditionsData
 import app.com.finalprojectfs.loan.model.entity.NewLoanData
 import app.com.finalprojectfs.loan.presentation.NewLoanPresenter
 import app.com.finalprojectfs.login.ui.LoginFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.new_loan_fragment.*
 
 class NewLoanFragment : Fragment() {
@@ -79,6 +80,14 @@ class NewLoanFragment : Fragment() {
 
         loan_amount_seek_bar.max
 
+    }
+
+    fun showProgress() {
+        activity?.main_loading?.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        activity?.main_loading?.visibility = View.GONE
     }
 
     private fun initPresenter() {

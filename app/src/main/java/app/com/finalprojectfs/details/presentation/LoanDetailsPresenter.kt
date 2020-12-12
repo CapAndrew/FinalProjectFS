@@ -28,6 +28,7 @@ class LoanDetailsPresenter {
     }
 
     fun fetchLoanById(loanId: Long, authToken: String) {
+        view?.showProgress()
         Log.e("LoanDetailsPresenter", "Fetch loan by ID: $loanId, authToken = $authToken")
         val historyDisposable = dService?.getLoansById(authToken, loanId)
             ?.subscribeOn(Schedulers.io())
@@ -51,7 +52,7 @@ class LoanDetailsPresenter {
     }
 
     private fun handleFetchLoanByIdResult(result: Result) {
-
+        view?.hideProgress()
         if (result is Result.Success) {
             view?.updateLoanDetails(result.data as LoanData)
         } else {

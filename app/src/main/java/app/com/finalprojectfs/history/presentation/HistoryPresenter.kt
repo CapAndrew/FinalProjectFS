@@ -49,6 +49,7 @@ class HistoryPresenter {
 
     fun fetchLoansAll(authToken: String) {
         Log.e("HistoryPresenter", "authToken: $authToken")
+        view?.showProgress()
 
         val historyDisposable = hService?.getLoansAll(authToken)
             ?.subscribeOn(Schedulers.io())
@@ -72,7 +73,7 @@ class HistoryPresenter {
     }
 
     private fun handleFetchLoansAllResult(result: Result) {
-
+        view?.hideProgress()
         if (result is Result.Success) {
             val loansList: MutableList<LoanData> = result.data as MutableList<LoanData>
 

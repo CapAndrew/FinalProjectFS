@@ -40,7 +40,6 @@
                 android:id="@+id/loan_conditions_max_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="300000p"
                 app:layout_constraintStart_toEndOf="@id/loan_conditions_max_amount_hint"
                 app:layout_constraintTop_toBottomOf="@+id/loan_conditions" />
 
@@ -56,7 +55,6 @@
                 android:id="@+id/loan_conditions_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10%"
                 app:layout_constraintStart_toEndOf="@id/loan_conditions_percent_hint"
                 app:layout_constraintTop_toBottomOf="@+id/loan_conditions_max_amount_hint" />
 
@@ -72,7 +70,6 @@
                 android:id="@+id/loan_conditions_period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="365 месяцев"
                 app:layout_constraintStart_toEndOf="@id/loan_conditions_period_hint"
                 app:layout_constraintTop_toBottomOf="@+id/loan_conditions_percent_hint" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -216,12 +213,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
+            android:id="@+id/newLoanButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:id="@+id/newLoanButton"
-            android:text="Получить заём!"
             android:enabled="false"
+            android:text="Получить заём!"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form" />
 

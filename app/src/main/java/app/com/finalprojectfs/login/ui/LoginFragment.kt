@@ -17,6 +17,7 @@ import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.ui.HistoryFragment
 import app.com.finalprojectfs.login.di.LoginPresenterFactory
 import app.com.finalprojectfs.login.presenter.LoginPresenter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : Fragment() {
@@ -141,7 +142,7 @@ class LoginFragment : Fragment() {
             }
             "registration" -> {
                 dialogBuilder.setTitle("Ошибка регистрации")
-                dialogBuilder.setMessage("Пользователь с указанным именем уже существует")
+                dialogBuilder.setMessage("Пользователь с указанным именем уже существует.")
                 dialogBuilder.setPositiveButton("Ок") { _, _ ->
                     userLogin.text.clear()
                     userPassword.text.clear()
@@ -159,13 +160,15 @@ class LoginFragment : Fragment() {
     }
 
     fun showProgress() {
-        loading.visibility = View.VISIBLE
+        activity?.main_loading?.visibility = View.VISIBLE
+        //loading.visibility = View.VISIBLE
         userLogin.clearFocus()
         userPassword.clearFocus()
     }
 
     fun hideProgress() {
-        loading.visibility = View.GONE
+        activity?.main_loading?.visibility = View.GONE
+        //loading.visibility = View.GONE
     }
 
     fun showActionFailed(errorText: String) {

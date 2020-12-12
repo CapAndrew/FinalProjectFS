@@ -10,6 +10,7 @@ import app.com.finalprojectfs.details.di.LoanDetailsPresenterFactory
 import app.com.finalprojectfs.details.presentation.LoanDetailsPresenter
 import app.com.finalprojectfs.login.ui.LoginFragment
 import app.com.finalprojectfs.main.model.entity.LoanData
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.loan_detail_fragment.*
 
 class LoanDetailsFragment() : Fragment() {
@@ -118,8 +119,12 @@ class LoanDetailsFragment() : Fragment() {
             ?.commit()
     }
 
-    fun showActionFailed(errorText: String) {
-        Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
+    fun showProgress() {
+        activity?.main_loading?.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        activity?.main_loading?.visibility = View.GONE
     }
 
     fun updateLoanDetails(loanData: LoanData) {
