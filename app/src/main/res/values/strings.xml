@@ -1,10 +1,29 @@
 <resources>
-	<string name="app_name">FinalProjectFS</string>
-    <string name="login_hint">Login</string>
-    <string name="password_hint">Password</string>
+	<string name="app_name">Займы 2.0</string>
+    <string name="login_hint">Имя</string>
+    <string name="password_hint">Пароль</string>
     <string name="login_button_text">Войти</string>
     <string name="register_button_text">Зарегистрироваться</string>
     <string name="get_new_loan">Получить заём</string>
     <string name="empty_history_hint">"Здесь будет отображаться ваша история займов. \nА пока можете получить свой первый заём. \nНажмите на кнопку \"Получить заём\""
     </string>
+    <string name="loan_conditions">Условия для заёма:</string>
+    <string name="loan_conditions_max_amount">Максимальная сумма заёма:</string>
+    <string name="loan_conditions_percent">Процент:</string>
+    <string name="loan_conditions_period">Срок:</string>
+    <string name="loan_form_title">Для получения заёма заполните следующие поля:</string>
+    <string name="loan_form_last_name">Фамилия:</string>
+    <string name="loan_form_first_name">Имя:</string>
+    <string name="loan_form_phone">Телефон:</string>
+    <string name="loan_form_amount">Сумма:</string>
+    <string name="loan_seekbar_amount">Выберите суммуу</string>
+    <string name="new_loan_button">Получить заём</string>
+    <string name="loan_detail_date">Дата подачи заявки:</string>
+    <string name="loan_detail_last_first_name">ФИО заёмщика:</string>
+    <string name="loan_detail_phone">Телефон заёмщика:</string>
+    <string name="loan_detail_amount">Сумма займа:</string>
+    <string name="loan_detail_percent">Процент:</string>
+    <string name="loan_detail_period">Период:</string>
+    <string name="loan_detail_state">Статус:</string>
+    <string name="how_to_get_loan">Получить заём можно в отделении банков-партнёров, либо просто зачислить его на карту, указав реквизиты(услуга не доступна в вашем регионе)</string>
 </resources>

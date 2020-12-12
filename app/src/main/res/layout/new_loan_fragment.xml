@@ -3,19 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/conditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="#FFFF99"
+            android:background="@color/yellow"
             android:padding="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +22,7 @@
                 android:id="@+id/loan_conditions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Условия для заёма:"
+                android:text="@string/loan_conditions"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +30,7 @@
                 android:id="@+id/loan_conditions_max_amount_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Максимальная сумма заёма: "
+                android:text="@string/loan_conditions_max_amount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loan_conditions" />
 
@@ -47,7 +45,7 @@
                 android:id="@+id/loan_conditions_percent_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Процент: "
+                android:text="@string/loan_conditions_percent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loan_conditions_max_amount_hint" />
 
@@ -62,7 +60,7 @@
                 android:id="@+id/loan_conditions_period_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Срок: "
+                android:text="@string/loan_conditions_period"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loan_conditions_percent_hint" />
 
@@ -74,8 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/loan_conditions_percent_hint" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,8 +85,7 @@
                 android:id="@+id/loan_form"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Для получения заёма заполните следующие поля:"
+                android:text="@string/loan_form_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,6 +93,7 @@
                 android:id="@+id/last_name_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loan_form">
 
@@ -104,9 +101,9 @@
                     android:id="@+id/loan_last_name_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Фамилия:"
+                    android:text="@string/loan_form_last_name"
                     android:textColor="@color/gray"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/normal_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,9 +126,9 @@
                     android:id="@+id/loan_first_name_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Имя:"
+                    android:text="@string/loan_form_first_name"
                     android:textColor="@color/gray"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/normal_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -154,9 +151,9 @@
                     android:id="@+id/loan_phone_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Телефон:"
+                    android:text="@string/loan_form_phone"
                     android:textColor="@color/gray"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/normal_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -164,6 +161,7 @@
                     android:id="@+id/loan_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="phone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/loan_phone_hint" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -179,7 +177,7 @@
                     android:id="@+id/loan_amount_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Сумма: "
+                    android:text="@string/loan_form_amount"
                     android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -202,9 +200,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Выберите суммуу"
+                    android:text="@string/loan_seekbar_amount"
                     android:textColor="@color/gray"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/small_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/loan_amount_seek_bar" />
@@ -218,7 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:enabled="false"
-            android:text="Получить заём!"
+            android:text="@string/new_loan_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form" />
 

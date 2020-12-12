@@ -9,7 +9,7 @@
         android:id="@+id/loan_detail_date_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Дата подачи заявки: "
+        android:text="@string/loan_detail_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/loan_detail_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loan_detail_date_hint" />
 
@@ -25,8 +25,8 @@
         android:id="@+id/loan_detail_last_first_name_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ФИО заёмщика: "
         android:layout_marginTop="5dp"
+        android:text="@string/loan_detail_last_first_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loan_detail_date" />
 
@@ -34,7 +34,7 @@
         android:id="@+id/loan_detail_last_first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loan_detail_last_first_name_hint" />
 
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Телефон заёмщика: "
+        android:text="@string/loan_detail_phone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loan_detail_last_first_name" />
 
@@ -51,16 +51,16 @@
         android:id="@+id/loan_detail_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loan_detail_phone_hint"/>
+        app:layout_constraintTop_toBottomOf="@+id/loan_detail_phone_hint" />
 
     <TextView
         android:id="@+id/loan_detail_amount_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Сумма займа: "
+        android:text="@string/loan_detail_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loan_detail_phone" />
 
@@ -68,9 +68,9 @@
         android:id="@+id/loan_detail_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loan_detail_amount_hint"/>
+        app:layout_constraintTop_toBottomOf="@+id/loan_detail_amount_hint" />
 
 
     <TextView
@@ -78,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Процент: "
+        android:text="@string/loan_detail_percent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loan_detail_amount" />
 
@@ -86,16 +86,16 @@
         android:id="@+id/loan_detail_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loan_detail_percent_hint"/>
+        app:layout_constraintTop_toBottomOf="@+id/loan_detail_percent_hint" />
 
     <TextView
         android:id="@+id/loan_detail_period_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Период: "
+        android:text="@string/loan_detail_period"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loan_detail_percent" />
 
@@ -103,16 +103,16 @@
         android:id="@+id/loan_detail_period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loan_detail_period_hint"/>
+        app:layout_constraintTop_toBottomOf="@+id/loan_detail_period_hint" />
 
     <TextView
         android:id="@+id/loan_detail_state_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Статус: "
+        android:text="@string/loan_detail_state"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loan_detail_period" />
 
@@ -120,8 +120,19 @@
         android:id="@+id/loan_detail_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loan_detail_state_hint"/>
+        app:layout_constraintTop_toBottomOf="@+id/loan_detail_state_hint" />
+
+    <TextView
+        android:id="@+id/how_to_get_loan_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/how_to_get_loan"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loan_detail_state" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
