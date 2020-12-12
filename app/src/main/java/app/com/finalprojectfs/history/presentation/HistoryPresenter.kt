@@ -5,13 +5,15 @@ import app.com.finalprojectfs.history.model.entity.LoanItem
 import app.com.finalprojectfs.history.model.retrofit.HistoryApi
 import app.com.finalprojectfs.history.model.retrofit.RetrofitHistoryService
 import app.com.finalprojectfs.history.ui.HistoryFragment
-import app.com.finalprojectfs.main.model.entity.Result
 import app.com.finalprojectfs.main.model.AuthTokenRepository
 import app.com.finalprojectfs.main.model.entity.LoanData
+import app.com.finalprojectfs.main.model.entity.Result
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
+import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.UnknownHostException
 
 class HistoryPresenter {
 
@@ -62,7 +64,8 @@ class HistoryPresenter {
                 { t ->
                     Log.e("HistoryPresenter", "Error: $t")
                     handleFetchLoansAllResult(
-                        Result.Error(IOException("Fetch history error", t)))
+                        Result.Error(t)
+                    )
                 })
 
         disposable?.add(historyDisposable!!)
@@ -85,20 +88,54 @@ class HistoryPresenter {
             }
 
         } else {
-            handleFetchLoansAllError(result.data as IOException)
+            handleFetchLoansAllError(result.data as Exception)
         }
     }
 
-    private fun handleFetchLoansAllError(exception: Exception) {
-        var exceptionText = "Внутренняя ошибка сервера"
+    private fun handleFetchLoansAllError(throwable: Throwable) {
 
-        when (exception.cause?.message) {
-            "HTTP 401" -> {
-                exceptionText = "Время сессии истекло. Авторизуйтесь заново"
-                clearAuthorization()
+        when (throwable) {
+            is HttpException -> {
+                when (throwable.code()) {
+                    403 -> {
+                        view?.showAuthorizationErrorDialog()
+                    }
+                    else -> {
+                        view?.showErrorDialogWithTwoButtons(
+                            "Внутренняя ошибка",
+                            "Что-то пошло не так. Попробуйте ещё раз позже.",
+                            "Обновить",
+                            "Выйти"
+                        )
+                    }
+                }
+            }
+            is UnknownHostException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет интернета",
+                    "Проверьте подключение к интернету и попробуйте ещё раз.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
+
+            is ConnectException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет подключения",
+                    "Отсутствует подключение к серверу. Попробуйте ещё раз позже.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
+            else -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Внутренняя ошибка",
+                    "Что-то пошло не так. Попробуйте ещё раз позже",
+                    "Обновить",
+                    "Выйти"
+                )
             }
         }
-        view?.showActionFailed(exceptionText)
     }
 
     fun destroyDisposables() {

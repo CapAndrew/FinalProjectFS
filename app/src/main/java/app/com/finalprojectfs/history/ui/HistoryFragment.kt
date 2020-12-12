@@ -3,7 +3,7 @@ package app.com.finalprojectfs.history.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.com.finalprojectfs.R
@@ -81,6 +81,56 @@ class HistoryFragment : Fragment() {
         }
     }
 
+    fun showErrorDialogWithTwoButtons(
+        errorTitle: String,
+        errorText: String,
+        positiveButtonName: String,
+        negativeButtonName: String
+    ) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle(errorTitle)
+        dialogBuilder.setMessage(errorText)
+        dialogBuilder.setPositiveButton(positiveButtonName) { _, _ ->
+            presenter?.fetchLoansAll(authToken)
+        }
+        dialogBuilder.setNegativeButton(negativeButtonName) { _, _ ->
+            activity?.finish()
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
+    }
+
+    fun showAuthorizationErrorDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle("Ошибка авторизации")
+        dialogBuilder.setMessage("Время сессии истекло. Авторизуйтесь заново.")
+        dialogBuilder.setPositiveButton("Авторизоваться") { _, _ ->
+            presenter?.clearAuthorization()
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
+    }
+
     fun showEmptyHistory() {
         empty_history.visibility = View.VISIBLE
         recycler.visibility = View.GONE
@@ -92,11 +142,7 @@ class HistoryFragment : Fragment() {
         empty_history.visibility = View.GONE
     }
 
-    fun showActionFailed(errorText: String) {
-        Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
-    }
-
-    fun openNewLoan() {
+    private fun openNewLoan() {
         val fragment = NewLoanFragment.newInstance()
         val bundle = Bundle()
         bundle.putString("authToken", authToken)
@@ -116,7 +162,7 @@ class HistoryFragment : Fragment() {
             ?.commit()
     }
 
-    fun openLoanDetails(loanItem: LoanItem) {
+    private fun openLoanDetails(loanItem: LoanItem) {
         val fragment = LoanDetailsFragment.newInstance()
         val bundle = Bundle()
         bundle.putLong("loanId", loanItem.id!!)

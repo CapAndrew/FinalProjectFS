@@ -3,17 +3,18 @@ package app.com.finalprojectfs.login.presenter
 import android.util.Log
 import app.com.finalprojectfs.login.model.RegistrationData
 import app.com.finalprojectfs.login.model.entity.LoginData
-import app.com.finalprojectfs.main.model.entity.Result
 import app.com.finalprojectfs.login.model.retrofit.LoginApi
 import app.com.finalprojectfs.login.model.retrofit.RetrofitLoginService
 import app.com.finalprojectfs.login.ui.LoginFragment
 import app.com.finalprojectfs.main.model.AuthTokenRepository
+import app.com.finalprojectfs.main.model.entity.Result
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers.io
-import java.io.IOException
-import java.lang.Exception
+import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.UnknownHostException
 
 
 class LoginPresenter {
@@ -58,7 +59,7 @@ class LoginPresenter {
                 },
                 { t ->
                     Log.e("LoginPresenter", "Error: $t")
-                    handleLoginResult(Result.Error(IOException("Error logging in", t)))
+                    handleLoginResult(Result.Error(t))
                 })
 
         disposable?.add(loginDisposable!!)
@@ -85,7 +86,7 @@ class LoginPresenter {
                 },
                 { t ->
                     handleRegistrationResult(
-                        Result.Error(IOException("Registration error", t))
+                        Result.Error(t)
                     )
                 }
             )
@@ -105,18 +106,57 @@ class LoginPresenter {
             Log.e("LoginPresenter", "Prefs: ${sharedPrefs.getAuthToken()}$")
             view?.openHistory(authToken)
         } else {
-            handleLoginError(result.data as IOException)
+            handleLoginError(result.data as Exception)
         }
     }
 
-    private fun handleLoginError(exception: Exception) {
-        Log.e("LoginPresenter", ">>${exception.cause}<<")
+    private fun handleLoginError(throwable: Throwable) {
+        when (throwable) {
+            is HttpException -> {
+                when (throwable.code()) {
+                    404 -> {
+                        view?.showLoginErrorDialog("login")
+                    }
+                    else -> {
+                        view?.showErrorDialogWithTwoButtons(
+                            "Внутренняя ошибка",
+                            "Что-то пошло не так. Попробуйте ещё раз позже.",
+                            "Обновить",
+                            "Выйти",
+                            "login"
+                        )
+                    }
+                }
+            }
+            is UnknownHostException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет интернета",
+                    "Проверьте подключение к интернету и попробуйте ещё раз.",
+                    "Обновить",
+                    "Выйти",
+                    "login"
+                )
+            }
 
-        val exceptionText = when (exception.cause?.message) {
-            "HTTP 404 " -> "Пользователь с указанными логином и паролем не найден"
-            else -> "Ошибка авторизации"
+            is ConnectException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет подключения",
+                    "Отсутствует подключение к серверу. Попробуйте ещё раз позже.",
+                    "Обновить",
+                    "Выйти",
+                    "login"
+                )
+            }
+            else -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Внутренняя ошибка",
+                    "Что-то пошло не так. Попробуйте ещё раз позже",
+                    "Обновить",
+                    "Выйти",
+                    "login"
+                )
+            }
         }
-        view?.showActionFailed(exceptionText)
     }
 
     private fun handleRegistrationResult(result: Result) {
@@ -128,18 +168,57 @@ class LoginPresenter {
             sharedPrefs.setAuthToken(token)
             view?.openHistory(token)
         } else {
-            handleRegistrationError(result.data as IOException)
+            handleRegistrationError(result.data as Exception)
         }
     }
 
-    private fun handleRegistrationError(exception: Exception) {
-        Log.e("LoginPresenter", ">>${exception.cause}<<")
+    private fun handleRegistrationError(throwable: Throwable) {
+        when (throwable) {
+            is HttpException -> {
+                when (throwable.code()) {
+                    400 -> {
+                        view?.showLoginErrorDialog("registration")
+                    }
+                    else -> {
+                        view?.showErrorDialogWithTwoButtons(
+                            "Внутренняя ошибка",
+                            "Что-то пошло не так. Попробуйте ещё раз позже.",
+                            "Обновить",
+                            "Выйти",
+                            "login"
+                        )
+                    }
+                }
+            }
+            is UnknownHostException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет интернета",
+                    "Проверьте подключение к интернету и попробуйте ещё раз.",
+                    "Обновить",
+                    "Выйти",
+                    "login"
+                )
+            }
 
-        val exceptionText = when (exception.cause?.message) {
-            "HTTP 400 " -> "Пользователь с таким именем уже существует"
-            else -> "Ошибка регистрации"
+            is ConnectException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет подключения",
+                    "Отсутствует подключение к серверу. Попробуйте ещё раз позже.",
+                    "Обновить",
+                    "Выйти",
+                    "login"
+                )
+            }
+            else -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Внутренняя ошибка",
+                    "Что-то пошло не так. Попробуйте ещё раз позже",
+                    "Обновить",
+                    "Выйти",
+                    "login"
+                )
+            }
         }
-        view?.showActionFailed(exceptionText)
     }
 
     fun destroyDisposables() {

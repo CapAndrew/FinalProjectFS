@@ -5,9 +5,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
@@ -15,7 +18,6 @@ import app.com.finalprojectfs.history.ui.HistoryFragment
 import app.com.finalprojectfs.login.di.LoginPresenterFactory
 import app.com.finalprojectfs.login.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.login_fragment.*
-import java.io.IOException
 
 class LoginFragment : Fragment() {
 
@@ -80,6 +82,80 @@ class LoginFragment : Fragment() {
                 userPassword.text.toString()
             )
         }
+    }
+
+    fun showErrorDialogWithTwoButtons(
+        errorTitle: String,
+        errorText: String,
+        positiveButtonName: String,
+        negativeButtonName: String,
+        action: String
+    ) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle(errorTitle)
+        dialogBuilder.setMessage(errorText)
+        dialogBuilder.setPositiveButton(positiveButtonName) { _, _ ->
+            when (action) {
+                "login" -> presenter?.onLoginButtonClicked(
+                    userLogin.text.toString(),
+                    userPassword.text.toString()
+                )
+                "registration" -> presenter?.onRegisterButtonClicked(
+                    userLogin.text.toString(),
+                    userPassword.text.toString()
+                )
+            }
+        }
+
+        dialogBuilder.setNegativeButton(negativeButtonName) { _, _ ->
+            activity?.finish()
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
+    }
+
+    fun showLoginErrorDialog(action: String) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        when (action) {
+            "login" -> {
+                dialogBuilder.setTitle("Ошибка авторизации")
+                dialogBuilder.setMessage("Пользователь с указанными логином и паролем не найден.")
+                dialogBuilder.setPositiveButton("Ок") { _, _ ->
+                    userLogin.text.clear()
+                    userPassword.text.clear()
+                }
+            }
+            "registration" -> {
+                dialogBuilder.setTitle("Ошибка регистрации")
+                dialogBuilder.setMessage("Пользователь с указанным именем уже существует")
+                dialogBuilder.setPositiveButton("Ок") { _, _ ->
+                    userLogin.text.clear()
+                    userPassword.text.clear()
+                }
+            }
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
     }
 
     fun showProgress() {

@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.ui.HistoryFragment
@@ -150,6 +151,77 @@ class NewLoanFragment : Fragment() {
         }
     }
 
+    fun showErrorDialogWithTwoButtons(
+        errorTitle: String,
+        errorText: String,
+        positiveButtonName: String,
+        negativeButtonName: String
+    ) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle(errorTitle)
+        dialogBuilder.setMessage(errorText)
+        dialogBuilder.setPositiveButton(positiveButtonName) { _, _ ->
+            presenter?.fetchLoanConditions(authToken)
+        }
+        dialogBuilder.setNegativeButton(negativeButtonName) { _, _ ->
+            activity?.finish()
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
+    }
+
+    fun showAuthorizationErrorDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle("Ошибка авторизации")
+        dialogBuilder.setMessage("Время сессии истекло. Авторизуйтесь заново.")
+        dialogBuilder.setPositiveButton("Авторизоваться") { _, _ ->
+            presenter?.clearAuthorization()
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
+    }
+
+    fun showSuccessDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle("Успех!")
+        dialogBuilder.setMessage("Заём успешно оформлен.")
+        dialogBuilder.setPositiveButton("К истории") { _, _ ->
+            openHistory(authToken)
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
+    }
+
     fun enableNewLoanButton(enable: Boolean) {
         newLoanButton.isEnabled = enable
     }
@@ -164,7 +236,7 @@ class NewLoanFragment : Fragment() {
         Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
     }
 
-    fun showActionSuccess(successText: String){
+    fun showActionSuccess(successText: String) {
         Toast.makeText(context, successText, Toast.LENGTH_SHORT).show()
     }
 

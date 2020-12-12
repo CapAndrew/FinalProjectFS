@@ -11,8 +11,9 @@ import app.com.finalprojectfs.main.model.entity.Result
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
-import java.lang.Exception
+import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.UnknownHostException
 
 class NewLoanPresenter {
 
@@ -45,12 +46,7 @@ class NewLoanPresenter {
                 { t ->
                     Log.e("NewLoanPresenter", "Error: $t")
                     handleFetchLoanConditionResult(
-                        Result.Error(
-                            IOException(
-                                "Fetch loan conditions error",
-                                t
-                            )
-                        )
+                        Result.Error(t)
                     )
                 })
 
@@ -62,20 +58,53 @@ class NewLoanPresenter {
         if (result is Result.Success) {
             view?.updateLoanConditions(result.data as LoanConditionsData)
         } else {
-            handleFetchLoanConditionError(result.data as IOException)
+            handleFetchLoanConditionError(result.data as Exception)
         }
     }
 
-    private fun handleFetchLoanConditionError(exception: Exception) {
-        var exceptionText = "Внутренняя ошибка сервера"
+    private fun handleFetchLoanConditionError(throwable: Throwable) {
+        when (throwable) {
+            is HttpException -> {
+                when (throwable.code()) {
+                    403 -> {
+                        view?.showAuthorizationErrorDialog()
+                    }
+                    else -> {
+                        view?.showErrorDialogWithTwoButtons(
+                            "Внутренняя ошибка",
+                            "Что-то пошло не так. Попробуйте ещё раз позже.",
+                            "Обновить",
+                            "Выйти"
+                        )
+                    }
+                }
+            }
+            is UnknownHostException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет интернета",
+                    "Проверьте подключение к интернету и попробуйте ещё раз.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
 
-        when (exception.cause?.message) {
-            "HTTP 401" -> {
-                exceptionText = "Время сессии истекло. Авторизуйтесь заново"
-                clearAuthorization()
+            is ConnectException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет подключения",
+                    "Отсутствует подключение к серверу. Попробуйте ещё раз позже.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
+            else -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Внутренняя ошибка",
+                    "Что-то пошло не так. Попробуйте ещё раз позже",
+                    "Обновить",
+                    "Выйти"
+                )
             }
         }
-        view?.showActionFailed(exceptionText)
     }
 
     fun onNewLoanButtonClicked(authToken: String, newLoan: NewLoanData) {
@@ -91,7 +120,9 @@ class NewLoanPresenter {
                 },
                 { t ->
                     Log.e("NewLoanPresenter", "Error: $t")
-                    handleNewLoanButtonClickedResult(Result.Error(IOException("Request new loan error", t)), null)
+                    handleNewLoanButtonClickedResult(
+                        Result.Error(t), null
+                    )
                 })
 
         disposable?.add(newLoanDisposable!!)
@@ -100,23 +131,55 @@ class NewLoanPresenter {
     private fun handleNewLoanButtonClickedResult(result: Result, authToken: String?) {
 
         if (result is Result.Success) {
-            view?.showActionSuccess("Заявка на займ успешно отправлена")
-            view?.openHistory(authToken!!)
+            view?.showSuccessDialog()
         } else {
-            handleNewLoanButtonClickedError(result.data as IOException)
+            handleNewLoanButtonClickedError(result.data as Exception)
         }
     }
 
-    private fun handleNewLoanButtonClickedError(exception: Exception) {
-        var exceptionText = "Внутренняя ошибка сервера"
+    private fun handleNewLoanButtonClickedError(throwable: Throwable) {
+        when (throwable) {
+            is HttpException -> {
+                when (throwable.code()) {
+                    403 -> {
+                        view?.showAuthorizationErrorDialog()
+                    }
+                    else -> {
+                        view?.showErrorDialogWithTwoButtons(
+                            "Внутренняя ошибка",
+                            "Что-то пошло не так. Попробуйте ещё раз позже.",
+                            "Обновить",
+                            "Выйти"
+                        )
+                    }
+                }
+            }
+            is UnknownHostException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет интернета",
+                    "Проверьте подключение к интернету и попробуйте ещё раз.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
 
-        when (exception.cause?.message) {
-            "HTTP 401" -> {
-                exceptionText = "Время сессии истекло. Авторизуйтесь заново"
-                clearAuthorization()
+            is ConnectException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет подключения",
+                    "Отсутствует подключение к серверу. Попробуйте ещё раз позже.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
+            else -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Внутренняя ошибка",
+                    "Что-то пошло не так. Попробуйте ещё раз позже",
+                    "Обновить",
+                    "Выйти"
+                )
             }
         }
-        view?.showActionFailed(exceptionText)
     }
 
     fun onNewLoanDataUpdated(amount: Int, lastName: String, firstName: String, phone: String) {

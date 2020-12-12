@@ -3,13 +3,13 @@ package app.com.finalprojectfs.details.ui
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.details.di.LoanDetailsPresenterFactory
 import app.com.finalprojectfs.details.presentation.LoanDetailsPresenter
 import app.com.finalprojectfs.login.ui.LoginFragment
 import app.com.finalprojectfs.main.model.entity.LoanData
-import app.com.finalprojectfs.main.model.entity.Result
 import kotlinx.android.synthetic.main.loan_detail_fragment.*
 
 class LoanDetailsFragment() : Fragment() {
@@ -48,6 +48,57 @@ class LoanDetailsFragment() : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.main_menu, menu)
+    }
+
+
+    fun showErrorDialogWithTwoButtons(
+        errorTitle: String,
+        errorText: String,
+        positiveButtonName: String,
+        negativeButtonName: String
+    ) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle(errorTitle)
+        dialogBuilder.setMessage(errorText)
+        dialogBuilder.setPositiveButton(positiveButtonName) { _, _ ->
+            presenter?.fetchLoanById(loanId!!, authToken)
+        }
+        dialogBuilder.setNegativeButton(negativeButtonName) { _, _ ->
+            activity?.finish()
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
+    }
+
+    fun showAuthorizationErrorDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.error_dialog, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setTitle("Ошибка авторизации")
+        dialogBuilder.setMessage("Время сессии истекло. Авторизуйтесь заново.")
+        dialogBuilder.setPositiveButton("Авторизоваться") { _, _ ->
+            presenter?.clearAuthorization()
+        }
+
+        dialogBuilder.setOnCancelListener {
+            activity?.finish()
+        }
+
+        dialogBuilder
+            .create()
+            .show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

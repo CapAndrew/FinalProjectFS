@@ -10,8 +10,9 @@ import app.com.finalprojectfs.main.model.entity.Result
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
-import java.lang.Exception
+import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.UnknownHostException
 
 class LoanDetailsPresenter {
 
@@ -38,7 +39,7 @@ class LoanDetailsPresenter {
                 },
                 { t ->
                     Log.e("LoanDetailsPresenter", "Error: $t")
-                    handleFetchLoanByIdResult(Result.Error(IOException("Fetch loan by id error", t)))
+                    handleFetchLoanByIdResult(Result.Error(t))
                 })
 
         disposable?.add(historyDisposable!!)
@@ -49,25 +50,58 @@ class LoanDetailsPresenter {
         view?.openLogin()
     }
 
-    private fun handleFetchLoanByIdResult(result: Result){
+    private fun handleFetchLoanByIdResult(result: Result) {
 
         if (result is Result.Success) {
-        view?.updateLoanDetails(result.data as LoanData)
-        }else{
-            handleFetchByIdError(result.data as IOException)
+            view?.updateLoanDetails(result.data as LoanData)
+        } else {
+            handleFetchByIdError(result.data as Exception)
         }
     }
 
-    private fun handleFetchByIdError(exception: Exception){
-        var exceptionText = "Внутренняя ошибка сервера"
+    private fun handleFetchByIdError(throwable: Throwable) {
+        when (throwable) {
+            is HttpException -> {
+                when (throwable.code()) {
+                    403 -> {
+                        view?.showAuthorizationErrorDialog()
+                    }
+                    else -> {
+                        view?.showErrorDialogWithTwoButtons(
+                            "Внутренняя ошибка",
+                            "Что-то пошло не так. Попробуйте ещё раз позже.",
+                            "Обновить",
+                            "Выйти"
+                        )
+                    }
+                }
+            }
+            is UnknownHostException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет интернета",
+                    "Проверьте подключение к интернету и попробуйте ещё раз.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
 
-        when (exception.cause?.message) {
-            "HTTP 401" -> {
-                exceptionText = "Время сессии истекло. Авторизуйтесь заново"
-                clearAuthorization()
+            is ConnectException -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Нет подключения",
+                    "Отсутствует подключение к серверу. Попробуйте ещё раз позже.",
+                    "Обновить",
+                    "Выйти"
+                )
+            }
+            else -> {
+                view?.showErrorDialogWithTwoButtons(
+                    "Внутренняя ошибка",
+                    "Что-то пошло не так. Попробуйте ещё раз позже",
+                    "Обновить",
+                    "Выйти"
+                )
             }
         }
-        view?.showActionFailed(exceptionText)
     }
 
     fun destroyDisposables() {
