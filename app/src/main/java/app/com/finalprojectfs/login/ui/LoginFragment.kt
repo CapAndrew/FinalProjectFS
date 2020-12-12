@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -161,18 +160,12 @@ class LoginFragment : Fragment() {
 
     fun showProgress() {
         activity?.main_loading?.visibility = View.VISIBLE
-        //loading.visibility = View.VISIBLE
         userLogin.clearFocus()
         userPassword.clearFocus()
     }
 
     fun hideProgress() {
         activity?.main_loading?.visibility = View.GONE
-        //loading.visibility = View.GONE
-    }
-
-    fun showActionFailed(errorText: String) {
-        Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
     }
 
     fun enableLoginButton(enable: Boolean) {

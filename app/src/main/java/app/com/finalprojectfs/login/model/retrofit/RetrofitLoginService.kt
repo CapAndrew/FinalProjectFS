@@ -1,7 +1,7 @@
 package app.com.finalprojectfs.login.model.retrofit
 
 import app.com.finalprojectfs.login.model.entity.LoginData
-import app.com.finalprojectfs.login.model.RegistrationData
+import app.com.finalprojectfs.login.model.entity.RegistrationData
 import io.reactivex.Flowable
 import retrofit2.http.Body
 import retrofit2.http.Headers

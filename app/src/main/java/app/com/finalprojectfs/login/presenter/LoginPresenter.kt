@@ -1,8 +1,7 @@
 package app.com.finalprojectfs.login.presenter
 
-import android.util.Log
-import app.com.finalprojectfs.login.model.RegistrationData
 import app.com.finalprojectfs.login.model.entity.LoginData
+import app.com.finalprojectfs.login.model.entity.RegistrationData
 import app.com.finalprojectfs.login.model.retrofit.LoginApi
 import app.com.finalprojectfs.login.model.retrofit.RetrofitLoginService
 import app.com.finalprojectfs.login.ui.LoginFragment
@@ -54,11 +53,9 @@ class LoginPresenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response ->
-                    Log.e("LoginPresenter", "Success: ${Result.Success(response)}")
                     handleLoginResult(Result.Success(response))
                 },
                 { t ->
-                    Log.e("LoginPresenter", "Error: $t")
                     handleLoginResult(Result.Error(t))
                 })
 
@@ -80,8 +77,6 @@ class LoginPresenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    Log.e("LoginPresenter", "Success: $registrationResponse$")
-                    Log.e("LoginPresenter", "Success: $loginResponse$")
                     handleRegistrationResult(Result.Success(loginResponse))
                 },
                 { t ->
@@ -97,13 +92,9 @@ class LoginPresenter {
 
         view?.hideProgress()
 
-        Log.e("LoginPresenter", "Result.data: ${result.data}")
-
-
         if (result is Result.Success) {
             val authToken: String = result.data as String
             sharedPrefs.setAuthToken(authToken)
-            Log.e("LoginPresenter", "Prefs: ${sharedPrefs.getAuthToken()}$")
             view?.openHistory(authToken)
         } else {
             handleLoginError(result.data as Exception)

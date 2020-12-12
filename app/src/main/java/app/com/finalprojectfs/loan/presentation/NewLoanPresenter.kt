@@ -1,6 +1,5 @@
 package app.com.finalprojectfs.loan.presentation
 
-import android.util.Log
 import app.com.finalprojectfs.loan.model.entity.LoanConditionsData
 import app.com.finalprojectfs.loan.model.entity.NewLoanData
 import app.com.finalprojectfs.loan.model.retrofit.NewLoanApi
@@ -35,17 +34,15 @@ class NewLoanPresenter {
 
     fun fetchLoanConditions(authToken: String) {
         view?.showProgress()
-        Log.e("NewLoanPresenter", "Fetch new conditions by authToken = $authToken")
+
         val loanConditionDisposable = nLService?.getLoansConditions(authToken)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(
                 { response ->
-                    Log.e("NewLoanPresenter", "Success: $response")
                     handleFetchLoanConditionResult(Result.Success(response))
                 },
                 { t ->
-                    Log.e("NewLoanPresenter", "Error: $t")
                     handleFetchLoanConditionResult(
                         Result.Error(t)
                     )
@@ -109,27 +106,21 @@ class NewLoanPresenter {
     }
 
     fun onNewLoanButtonClicked(authToken: String, newLoan: NewLoanData) {
-        Log.e("NewLoanPresenter", "Fetch new conditions by authToken = $authToken")
-
         val newLoanDisposable = nLService?.postLoans(authToken, newLoan)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(
                 { response ->
-                    Log.e("NewLoanPresenter", "Success: $response")
-                    handleNewLoanButtonClickedResult(Result.Success(response), authToken)
+                    handleNewLoanButtonClickedResult(Result.Success(response))
                 },
                 { t ->
-                    Log.e("NewLoanPresenter", "Error: $t")
-                    handleNewLoanButtonClickedResult(
-                        Result.Error(t), null
-                    )
+                    handleNewLoanButtonClickedResult(Result.Error(t))
                 })
 
         disposable?.add(newLoanDisposable!!)
     }
 
-    private fun handleNewLoanButtonClickedResult(result: Result, authToken: String?) {
+    private fun handleNewLoanButtonClickedResult(result: Result) {
 
         if (result is Result.Success) {
             view?.showSuccessDialog()

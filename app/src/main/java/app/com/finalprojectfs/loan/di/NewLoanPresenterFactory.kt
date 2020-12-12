@@ -4,7 +4,5 @@ import app.com.finalprojectfs.loan.presentation.NewLoanPresenter
 
 object NewLoanPresenterFactory {
 
-    fun create(): NewLoanPresenter{
-        return NewLoanPresenter()
-    }
+    fun create(): NewLoanPresenter = NewLoanPresenter()
 }

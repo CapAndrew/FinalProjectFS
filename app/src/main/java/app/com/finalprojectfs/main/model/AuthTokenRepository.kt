@@ -1,7 +1,6 @@
 package app.com.finalprojectfs.main.model
 
 import android.content.Context
-import android.util.Log
 
 class AuthTokenRepository(context: Context?) {
 
@@ -13,14 +12,9 @@ class AuthTokenRepository(context: Context?) {
 
     private val sharedPrefs = context?.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-    fun getAuthToken(): String {
-        Log.e("AuthRep", "getAuthToken ${sharedPrefs?.getString(AUTH_TOKEN, null).orEmpty()}")
-
-        return sharedPrefs?.getString(AUTH_TOKEN, null).orEmpty()
-    }
+    fun getAuthToken(): String = sharedPrefs?.getString(AUTH_TOKEN, null).orEmpty()
 
     fun setAuthToken(authToken: String) {
-        Log.e("AuthRep", "setAuthToken $sharedPrefs and token is $authToken")
         sharedPrefs?.edit()
             ?.putString(AUTH_TOKEN, authToken)
             ?.apply()

@@ -4,8 +4,5 @@ import app.com.finalprojectfs.login.presenter.LoginPresenter
 
 object LoginPresenterFactory {
 
-    fun create(): LoginPresenter {
-
-        return LoginPresenter()
-    }
+    fun create(): LoginPresenter = LoginPresenter()
 }

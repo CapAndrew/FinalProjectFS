@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="orange">#9C641F</color>
-	<color name="dark_orange">#5C3B12</color>
-	<color name="darker_orange">#1E1201</color>
-	<color name="light_orange">#DDAA6C</color>
-	<color name="brown_orange">#C27B27</color>
-	<color name="black">#FF000000</color>
-	<color name="white">#FFFFFFFF</color>
+    <color name="orange">#9C641F</color>
+    <color name="dark_orange">#5C3B12</color>
+    <color name="darker_orange">#1E1201</color>
+    <color name="light_orange">#DDAA6C</color>
+    <color name="brown_orange">#C27B27</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="gray">#FF808080</color>
-	<color name= "yellow">#F3DBB1</color>
-	<color name= "dark_yellow">#43430A</color>
+    <color name="yellow">#F3DBB1</color>
+    <color name="dark_yellow">#43430A</color>
 </resources>

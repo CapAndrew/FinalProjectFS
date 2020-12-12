@@ -1,6 +1,5 @@
 package app.com.finalprojectfs.details.presentation
 
-import android.util.Log
 import app.com.finalprojectfs.details.model.retrofit.LoanDetailsApi
 import app.com.finalprojectfs.details.model.retrofit.RetrofitLoanDetailsService
 import app.com.finalprojectfs.details.ui.LoanDetailsFragment
@@ -30,17 +29,14 @@ class LoanDetailsPresenter {
 
     fun fetchLoanById(loanId: Long, authToken: String) {
         view?.showProgress()
-        Log.e("LoanDetailsPresenter", "Fetch loan by ID: $loanId, authToken = $authToken")
         val historyDisposable = dService?.getLoansById(authToken, loanId)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(
                 { response ->
-                    Log.e("LoanDetailsPresenter", "Success: $response")
                     handleFetchLoanByIdResult(Result.Success(response))
                 },
                 { t ->
-                    Log.e("LoanDetailsPresenter", "Error: $t")
                     handleFetchLoanByIdResult(Result.Error(t))
                 })
 
@@ -59,7 +55,7 @@ class LoanDetailsPresenter {
 
         if (result is Result.Success) {
             view?.updateLoanDetails(loanData)
-            if(loanData.state == State.APPROVED.toString()){
+            if (loanData.state == State.APPROVED.toString()) {
                 view?.showHowToGetHint()
             }
         } else {

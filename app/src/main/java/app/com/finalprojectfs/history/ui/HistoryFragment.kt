@@ -1,7 +1,6 @@
 package app.com.finalprojectfs.history.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -13,8 +12,8 @@ import app.com.finalprojectfs.history.model.entity.LoanItem
 import app.com.finalprojectfs.history.presentation.HistoryPresenter
 import app.com.finalprojectfs.loan.ui.NewLoanFragment
 import app.com.finalprojectfs.login.ui.LoginFragment
-import kotlinx.android.synthetic.main.history_fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.history_fragment.*
 
 class HistoryFragment : Fragment() {
 
@@ -138,6 +137,7 @@ class HistoryFragment : Fragment() {
     }
 
     fun showHistory(loanList: MutableList<LoanItem>) {
+        loanAdapter.clearItem()
         loanAdapter.updateItem(loanList)
         recycler.visibility = View.VISIBLE
         empty_history.visibility = View.GONE
@@ -156,8 +156,6 @@ class HistoryFragment : Fragment() {
         val bundle = Bundle()
         bundle.putString("authToken", authToken)
         fragment.arguments = bundle
-
-        Log.e("ActualToken", authToken)
 
         fragmentManager?.beginTransaction()
             ?.replace(R.id.container, fragment)

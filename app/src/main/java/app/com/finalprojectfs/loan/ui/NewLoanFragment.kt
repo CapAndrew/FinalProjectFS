@@ -3,11 +3,9 @@ package app.com.finalprojectfs.loan.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.*
 import android.widget.EditText
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
@@ -43,8 +41,6 @@ class NewLoanFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         val bundle = arguments
         authToken = bundle?.getString("authToken").toString()
-
-        Log.d("AuthToken", "From onAcCrea newLoan $authToken")
 
         initPresenter()
         initViews()
@@ -238,15 +234,7 @@ class NewLoanFragment : Fragment() {
             ?.commit()
     }
 
-    fun showActionFailed(errorText: String) {
-        Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
-    }
-
-    fun showActionSuccess(successText: String) {
-        Toast.makeText(context, successText, Toast.LENGTH_SHORT).show()
-    }
-
-    fun openHistory(authToken: String) {
+    private fun openHistory(authToken: String) {
         val fragment = HistoryFragment.newInstance()
         val bundle = Bundle()
         bundle.putString("authToken", authToken)

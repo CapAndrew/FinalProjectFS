@@ -4,8 +4,5 @@ import app.com.finalprojectfs.main.presentation.MainPresenter
 
 object MainPresenterFactory {
 
-    fun create(): MainPresenter{
-
-        return MainPresenter()
-    }
+    fun create(): MainPresenter = MainPresenter()
 }

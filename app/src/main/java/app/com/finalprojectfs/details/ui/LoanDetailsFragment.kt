@@ -2,7 +2,6 @@ package app.com.finalprojectfs.details.ui
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import app.com.finalprojectfs.R
@@ -127,7 +126,7 @@ class LoanDetailsFragment() : Fragment() {
         activity?.main_loading?.visibility = View.GONE
     }
 
-    fun showHowToGetHint(){
+    fun showHowToGetHint() {
         how_to_get_loan_hint?.visibility = View.VISIBLE
     }
 

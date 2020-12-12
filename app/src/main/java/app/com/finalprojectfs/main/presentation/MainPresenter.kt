@@ -6,7 +6,6 @@ import app.com.finalprojectfs.main.ui.MainActivity
 class MainPresenter {
 
     private lateinit var sharedPrefs: AuthTokenRepository
-
     private var view: MainActivity? = null
 
     fun attachView(view: MainActivity) {

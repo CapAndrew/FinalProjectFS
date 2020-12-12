@@ -1,6 +1,5 @@
 package app.com.finalprojectfs.history.presentation
 
-import android.util.Log
 import app.com.finalprojectfs.history.model.entity.LoanItem
 import app.com.finalprojectfs.history.model.retrofit.HistoryApi
 import app.com.finalprojectfs.history.model.retrofit.RetrofitHistoryService
@@ -48,7 +47,6 @@ class HistoryPresenter {
 
 
     fun fetchLoansAll(authToken: String) {
-        Log.e("HistoryPresenter", "authToken: $authToken")
         view?.showProgress()
 
         val historyDisposable = hService?.getLoansAll(authToken)
@@ -59,11 +57,9 @@ class HistoryPresenter {
             }
             ?.subscribe(
                 { response ->
-                    Log.e("HistoryPresenter", "Success: $response")
                     handleFetchLoansAllResult(Result.Success(response))
                 },
                 { t ->
-                    Log.e("HistoryPresenter", "Error: $t")
                     handleFetchLoansAllResult(
                         Result.Error(t)
                     )

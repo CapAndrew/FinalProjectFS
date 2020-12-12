@@ -1,10 +1,6 @@
 package app.com.finalprojectfs.main.ui
 
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import app.com.finalprojectfs.R
 import app.com.finalprojectfs.history.ui.HistoryFragment
