@@ -128,19 +128,19 @@ class LoanDetailsFragment() : Fragment() {
     }
 
     fun showHowToGetHint(){
-        how_to_get_loan_hint.visibility = View.VISIBLE
+        how_to_get_loan_hint?.visibility = View.VISIBLE
     }
 
     fun updateLoanDetails(loanData: LoanData) {
         val lastFirstName = "${loanData.lastName} ${loanData.firstName}"
 
-        loan_detail_date.text = loanData.date.toString()
-        loan_detail_last_first_name.text = lastFirstName
-        loan_detail_phone.text = loanData.phoneNumber
-        loan_detail_amount.text = loanData.amount.toString()
-        loan_detail_percent.text = loanData.percent.toString()
-        loan_detail_period.text = loanData.period.toString()
-        loan_detail_state.text = loanData.state.toString()
+        loan_detail_date?.text = loanData.date.toString()
+        loan_detail_last_first_name?.text = lastFirstName
+        loan_detail_phone?.text = loanData.phoneNumber
+        loan_detail_amount?.text = loanData.amount.toString()
+        loan_detail_percent?.text = loanData.percent.toString()
+        loan_detail_period?.text = loanData.period.toString()
+        loan_detail_state?.text = loanData.state.toString()
     }
 
     private fun initPresenter() {

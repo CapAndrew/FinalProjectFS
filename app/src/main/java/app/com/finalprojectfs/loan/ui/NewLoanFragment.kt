@@ -74,12 +74,9 @@ class NewLoanFragment : Fragment() {
     fun updateLoanConditions(conditions: LoanConditionsData) {
         maxAmount = conditions.maxAmount!!
 
-        loan_conditions_max_amount.text = maxAmount.toString()
-        loan_conditions_percent.text = conditions.percent.toString()
-        loan_conditions_period.text = conditions.period.toString()
-
-        loan_amount_seek_bar.max
-
+        loan_conditions_max_amount?.text = maxAmount.toString()
+        loan_conditions_percent?.text = conditions.percent.toString()
+        loan_conditions_period?.text = conditions.period.toString()
     }
 
     fun showProgress() {
