@@ -3,7 +3,7 @@
     <string name="app_name">Loans 2.0</string>
     <string name="login_hint">Name</string>
     <string name="password_hint">Password</string>
-    <string name="login_button_text">Enter</string>
+    <string name="login_button_text">Login</string>
     <string name="register_button_text">Register</string>
     <string name="get_new_loan">New loan</string>
     <string name="empty_history_hint">"Your loan history will be displayed here. \nIn the meantime, you can get your first loan. \nClick on the button \"New loan\""
